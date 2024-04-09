@@ -208,13 +208,31 @@ class _HomeScreenState extends State<HomeScreen> {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(
-                                      item['name'],
-                                      style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          item['name'],
+                                          style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                        Container(
+                                          width: 60,
+                                          decoration: BoxDecoration(
+                                            color: primaryColor8,
+                                            borderRadius: BorderRadius.circular(6.0),
+                                          ),
+                                          child: Center(
+                                            child: Text(
+                                              '3%',
+                                              style: ktsBodyRegularBold.copyWith(color: whiteColor),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
                                     ),
-                                    const SizedBox(height: 8.0),
+                                    h8(),
                                     Text(
                                       'Үнэ: ${item['price']}₮ | Тоо: ${item['quantity']}',
                                       style: TextStyle(fontSize: 16.0, color: Colors.grey[700]),
