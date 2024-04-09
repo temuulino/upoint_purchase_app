@@ -12,7 +12,7 @@ class purchaseService {
   ) async {
     try {
       final response = await _dio.post(
-        'https://60e2-202-126-91-135.ngrok-free.app/auth/purchase',
+        'https://8ce9-202-126-91-135.ngrok-free.app/auth/purchase',
         options: Options(
           headers: {
             'Authorization': 'Bearer $_token',

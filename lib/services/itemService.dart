@@ -9,7 +9,7 @@ class itemService {
   Future<List<Map<String, dynamic>>> getItemService() async {
     try {
       final response = await _dio.get(
-        "https://60e2-202-126-91-135.ngrok-free.app/auth/items",
+        "https://8ce9-202-126-91-135.ngrok-free.app/auth/items",
         options: Options(
           headers: {
             'Authorization': 'Bearer $_token',

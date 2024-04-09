@@ -1,3 +1,4 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:upoint_purchase_app/const/spacing.dart';
@@ -35,7 +36,9 @@ class _HomeScreenState extends State<HomeScreen> {
       final tempMeService = meService(dio, widget.token);
       final pMeService = await tempMeService.getMeService();
 
-      meInfo = pMeService;
+      setState(() {
+        meInfo = pMeService;
+      });
       print("success me $meInfo");
     } catch (error) {
       print("error: $error");
@@ -47,7 +50,9 @@ class _HomeScreenState extends State<HomeScreen> {
       final tempItemService = itemService(dio, widget.token);
       final pitemService = await tempItemService.getItemService();
 
-      itemInfo = pitemService;
+      setState(() {
+        itemInfo = pitemService;
+      });
       print("Success item: $itemInfo");
     } catch (error) {
       print("error: $error");
@@ -62,12 +67,29 @@ class _HomeScreenState extends State<HomeScreen> {
       purchase = ppurchaseService;
       print("Success purchase: $purchase");
     } catch (error) {
+      AwesomeDialog(
+        context: context,
+        dialogType: DialogType.error,
+        animType: AnimType.scale,
+        title: 'Амжилтгүй',
+        desc: 'Таны онооны үлдэгдэл хүрэлцэхгүй байна',
+        btnOkOnPress: () {},
+        btnOkText: 'Ok',
+        btnOkColor: dangerColor5,
+      ).show();
       print("error: $error");
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    if (meInfo.isEmpty) {
+      return const Scaffold(
+        body: Center(
+          child: CircularProgressIndicator(),
+        ),
+      );
+    }
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
@@ -77,7 +99,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 Container(
                   width: screenWidth(context),
                   height: screenHeight(context) * 0.25,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     borderRadius: BorderRadius.only(
                       bottomLeft: Radius.circular(16.0),
                       bottomRight: Radius.circular(16.0),
@@ -179,7 +201,25 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       child: InkWell(
                         onTap: () {
-                          print("Item ID: ${item['_id']}");
+                          AwesomeDialog(
+                                  context: context,
+                                  dialogType: DialogType.info,
+                                  animType: AnimType.scale,
+                                  title: '${item['name']}',
+                                  desc: '${item['price']} оноогоор худалдан авах уу?',
+                                  btnOkOnPress: () {
+                                    setState(() {
+                                      itemId = item['_id'];
+                                    });
+                                    makePurchase();
+                                  },
+                                  btnOkText: 'Тийм',
+                                  btnOkColor: informationColor5,
+                                  btnCancelColor: dangerColor5,
+                                  btnCancelOnPress: () {},
+                                  btnCancelText: 'Үгүй')
+                              .show();
+                          // print("Item ID: ${item['_id']}");
                         },
                         borderRadius: BorderRadius.circular(12.0),
                         child: Padding(

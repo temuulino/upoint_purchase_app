@@ -8,7 +8,7 @@ class UpdatePasswordService {
   Future<Map<String, dynamic>> updatePassword(String username, String password) async {
     try {
       final response = await _dio.post(
-        "https://60e2-202-126-91-135.ngrok-free.app/auth/signup",
+        "https://8ce9-202-126-91-135.ngrok-free.app/auth/signup",
         options: Options(
           headers: {'accept': '*/*', 'Content-Type': 'application/json'},
         ),
