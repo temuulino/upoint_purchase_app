@@ -1,0 +1,41 @@
+import 'package:dio/dio.dart';
+
+class UpdatePasswordService {
+  final Dio _dio;
+
+  UpdatePasswordService(this._dio);
+
+  Future<Map<String, dynamic>> updatePassword(String username, String password) async {
+    try {
+      final response = await _dio.post(
+        "https://7080-202-131-242-131.ngrok-free.app/auth/signup",
+        options: Options(
+          headers: {
+            'Accept': 'application/json',
+          },
+        ),
+        data: {'email': username, 'password': password},
+      );
+
+      print("This is signup service: $response");
+
+      final Map<String, dynamic> signUp = Map<String, dynamic>.from(response.data);
+      print("This is token $signUp");
+      return signUp;
+    } catch (error) {
+      if (error is DioError) {
+        final Map<String, dynamic> errorMessage;
+        if (error.response?.statusCode == 422) {
+          print('Unprocessable Entity: ${error.response?.data}');
+          errorMessage = error.response?.data;
+          return errorMessage;
+        } else {
+          print('Request failed: $error');
+        }
+      } else {
+        print('Sign Up failed: $error');
+      }
+      throw error;
+    }
+  }
+}
