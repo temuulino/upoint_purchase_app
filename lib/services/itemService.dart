@@ -1,15 +1,15 @@
 import 'package:dio/dio.dart';
 
-class meService {
+class itemService {
   final Dio _dio;
   final String _token;
 
-  meService(this._dio, this._token);
+  itemService(this._dio, this._token);
 
-  Future<Map<String, dynamic>> getMeService() async {
+  Future<Map<String, dynamic>> getItemService() async {
     try {
       final response = await _dio.get(
-        "https://9a60-202-131-242-131.ngrok-free.app/auth/me",
+        "https://9a60-202-131-242-131.ngrok-free.app/auth/items",
         options: Options(
           headers: {
             'Authorization': 'Bearer $_token',
@@ -19,7 +19,7 @@ class meService {
       );
 
       // Debug print the full response
-      print("This is me service: ${response.data}");
+      print("This is items service: ${response.data}");
 
       // Assuming the response data is already a Map<String, dynamic>
       if (response.data is Map<String, dynamic>) {
@@ -30,7 +30,7 @@ class meService {
         throw FormatException('Expected the data to be a map');
       }
     } catch (error) {
-      print('Failed to fetch me service: $error');
+      print('Failed to fetch items service: $error');
       throw error;
     }
   }

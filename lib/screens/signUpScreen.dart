@@ -16,10 +16,7 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
-  TextEditingController firstNameController = TextEditingController();
-  TextEditingController lastNameController = TextEditingController();
-  TextEditingController emailController = TextEditingController();
-  TextEditingController phoneController = TextEditingController();
+  TextEditingController usernameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
   bool _isPasswordHidden = true;
@@ -42,10 +39,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
       isSignUpInProgress = true;
     });
 
-    String username = emailController.text.trim();
+    String username = usernameController.text.trim();
     String password = passwordController.text.trim();
 
-    print("email: $username");
+    print("username: $username");
     print("Pass: $password");
 
     try {
@@ -126,7 +123,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             height: screenHeight(context),
             decoration: const BoxDecoration(
               gradient: LinearGradient(
-                colors: [primaryColor3, primaryColor5],
+                colors: [primaryColor5, primaryColor8],
                 begin: Alignment.centerLeft,
                 end: Alignment.centerRight,
               ),
@@ -175,58 +172,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           key: _formKey,
                           child: Column(
                             children: [
-                              Container(
-                                decoration: BoxDecoration(
-                                  border: Border.all(color: greyColor3, width: 1.0),
-                                  borderRadius: BorderRadius.circular(8.0), // Optional: Add border radius
-                                ),
-                                child: TextFormField(
-                                  keyboardType: TextInputType.name,
-                                  textInputAction: TextInputAction.next,
-                                  cursorColor: primaryColor6,
-                                  controller: lastNameController,
-                                  // onSaved: (email) {},
-                                  decoration: InputDecoration(
-                                    labelText: "Овог",
-                                    labelStyle: const TextStyle(
-                                      color: greyColor5,
-                                    ),
-                                    hintText: "Овог",
-                                    hintStyle: ktsBodyRegular.copyWith(color: greyColor5),
-                                    border: InputBorder.none,
-                                    contentPadding: const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
-                                    floatingLabelBehavior:
-                                        FloatingLabelBehavior.auto, // Set the floating label behavior
-                                  ),
-                                ),
-                              ),
-                              h12(),
-                              Container(
-                                decoration: BoxDecoration(
-                                  border: Border.all(color: greyColor3, width: 1.0),
-                                  borderRadius: BorderRadius.circular(8.0), // Optional: Add border radius
-                                ),
-                                child: TextFormField(
-                                  keyboardType: TextInputType.name,
-                                  textInputAction: TextInputAction.next,
-                                  cursorColor: primaryColor6,
-                                  controller: firstNameController,
-                                  // onSaved: (email) {},
-                                  decoration: InputDecoration(
-                                    labelText: "Нэр",
-                                    labelStyle: const TextStyle(
-                                      color: greyColor5,
-                                    ),
-                                    hintText: "Нэр",
-                                    hintStyle: ktsBodyRegular.copyWith(color: greyColor5),
-                                    border: InputBorder.none,
-                                    contentPadding: const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
-                                    floatingLabelBehavior:
-                                        FloatingLabelBehavior.auto, // Set the floating label behavior
-                                  ),
-                                ),
-                              ),
-                              h12(),
+                              h48(),
                               Container(
                                 decoration: BoxDecoration(
                                   border: Border.all(color: greyColor3, width: 1.0),
@@ -236,54 +182,20 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   keyboardType: TextInputType.emailAddress,
                                   textInputAction: TextInputAction.next,
                                   cursorColor: primaryColor6,
-                                  controller: emailController,
+                                  controller: usernameController,
                                   // onSaved: (email) {},
                                   decoration: InputDecoration(
-                                    labelText: "Email хаяг",
+                                    labelText: "Username",
                                     labelStyle: const TextStyle(
                                       color: greyColor5,
                                     ),
-                                    hintText: "Email хаяг",
+                                    hintText: "Username",
                                     hintStyle: ktsBodyRegular.copyWith(color: greyColor5),
                                     border: InputBorder.none,
                                     contentPadding: const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
                                     floatingLabelBehavior:
                                         FloatingLabelBehavior.auto, // Set the floating label behavior
                                   ),
-                                ),
-                              ),
-                              h12(),
-                              Container(
-                                decoration: BoxDecoration(
-                                  border: Border.all(color: greyColor3, width: 1.0),
-                                  borderRadius: BorderRadius.circular(8.0), // Optional: Add border radius
-                                ),
-                                child: TextFormField(
-                                  keyboardType: TextInputType.phone,
-                                  textInputAction: TextInputAction.next,
-                                  cursorColor: primaryColor6,
-                                  controller: phoneController,
-                                  // onSaved: (value) {}, // Uncomment and use if needed
-                                  decoration: InputDecoration(
-                                    labelText: "Утасны дугаар",
-                                    labelStyle: TextStyle(
-                                      color: greyColor5,
-                                    ),
-                                    hintText: "Утасны дугаар",
-                                    hintStyle: ktsBodyRegular.copyWith(color: greyColor5),
-                                    border: InputBorder.none,
-                                    contentPadding: EdgeInsets.symmetric(vertical: 2, horizontal: 20),
-                                    floatingLabelBehavior:
-                                        FloatingLabelBehavior.auto, // Set the floating label behavior
-                                  ),
-                                  validator: (value) {
-                                    if (value == null || value.isEmpty) {
-                                      return 'Утасны дугаар оруулна уу'; // 'Please enter phone number'
-                                    } else if (value.length != 8) {
-                                      return 'Утасны дугаар нь 8 оронтой байх ёстой'; // 'Phone number must be 8 digits'
-                                    }
-                                    return null; // Return null if the input is valid
-                                  },
                                 ),
                               ),
                               h12(),
@@ -327,41 +239,37 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               Expanded(
                                 child: Align(
                                   alignment: Alignment.bottomCenter,
-                                  child: Column(
-                                    children: [
-                                      InkWell(
-                                        onTap: isSignUpInProgress
-                                            ? null
-                                            : () {
-                                                if (_formKey.currentState!.validate()) {
-                                                  signUp();
-                                                }
-                                              },
-                                        child: Container(
-                                          height: 50,
-                                          width: screenWidth(context) * 0.8,
-                                          decoration: BoxDecoration(
-                                            color: primaryColor5,
-                                            borderRadius: BorderRadius.circular(24.0),
-                                          ),
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(12.0),
-                                            child: isSignUpInProgress
-                                                ? const Center(
-                                                    child: CircularProgressIndicator(
-                                                      valueColor: AlwaysStoppedAnimation<Color>(
-                                                          whiteColor), // Adjust the progress indicator color here
-                                                    ),
-                                                  )
-                                                : Text(
-                                                    'Бүртгүүлэх',
-                                                    style: ktsBodyLarge.copyWith(color: whiteColor),
-                                                    textAlign: TextAlign.center,
-                                                  ),
-                                          ),
-                                        ),
+                                  child: InkWell(
+                                    onTap: isSignUpInProgress
+                                        ? null
+                                        : () {
+                                            if (_formKey.currentState!.validate()) {
+                                              signUp();
+                                            }
+                                          },
+                                    child: Container(
+                                      height: 50,
+                                      width: screenWidth(context) * 0.8,
+                                      decoration: BoxDecoration(
+                                        color: primaryColor5,
+                                        borderRadius: BorderRadius.circular(24.0),
                                       ),
-                                    ],
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(12.0),
+                                        child: isSignUpInProgress
+                                            ? const Center(
+                                                child: CircularProgressIndicator(
+                                                  valueColor: AlwaysStoppedAnimation<Color>(
+                                                      whiteColor), // Adjust the progress indicator color here
+                                                ),
+                                              )
+                                            : Text(
+                                                'Бүртгүүлэх',
+                                                style: ktsBodyLarge.copyWith(color: whiteColor),
+                                                textAlign: TextAlign.center,
+                                              ),
+                                      ),
+                                    ),
                                   ),
                                 ),
                               ),
