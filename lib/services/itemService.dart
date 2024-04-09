@@ -6,10 +6,10 @@ class itemService {
 
   itemService(this._dio, this._token);
 
-  Future<Map<String, dynamic>> getItemService() async {
+  Future<List<Map<String, dynamic>>> getItemService() async {
     try {
       final response = await _dio.get(
-        "https://9a60-202-131-242-131.ngrok-free.app/auth/items",
+        "https://60e2-202-126-91-135.ngrok-free.app/auth/items",
         options: Options(
           headers: {
             'Authorization': 'Bearer $_token',
@@ -21,13 +21,20 @@ class itemService {
       // Debug print the full response
       print("This is items service: ${response.data}");
 
-      // Assuming the response data is already a Map<String, dynamic>
-      if (response.data is Map<String, dynamic>) {
-        return response.data;
+      // Assuming the response data is a list of maps
+      if (response.data is List) {
+        // Convert each item in the list to a map
+        List<Map<String, dynamic>> itemList = [];
+        for (var item in response.data) {
+          if (item is Map<String, dynamic>) {
+            itemList.add(item);
+          }
+        }
+        return itemList;
       } else {
-        // If for any reason, the data is not a map, log and throw an error or return a default map
-        print('Data is not a map');
-        throw FormatException('Expected the data to be a map');
+        // If for any reason, the data is not a list, log and throw an error or return an empty list
+        print('Data is not a list');
+        return [];
       }
     } catch (error) {
       print('Failed to fetch items service: $error');

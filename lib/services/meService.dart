@@ -9,7 +9,7 @@ class meService {
   Future<Map<String, dynamic>> getMeService() async {
     try {
       final response = await _dio.get(
-        "https://9a60-202-131-242-131.ngrok-free.app/auth/me",
+        "https://60e2-202-126-91-135.ngrok-free.app/auth/me",
         options: Options(
           headers: {
             'Authorization': 'Bearer $_token',

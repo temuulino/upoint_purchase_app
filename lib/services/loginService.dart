@@ -8,7 +8,7 @@ class LoginService {
   Future<String> login(String username, String password) async {
     try {
       final response = await _dio.post(
-        "https://9a60-202-131-242-131.ngrok-free.app/auth/login",
+        "https://60e2-202-126-91-135.ngrok-free.app/auth/login",
         options: Options(
           headers: {
             // 'Authorization': 'Bearer $_token',

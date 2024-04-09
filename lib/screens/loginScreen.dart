@@ -6,6 +6,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:upoint_purchase_app/screens/homeScreen.dart';
 import 'package:upoint_purchase_app/screens/signUpScreen.dart';
 
 import '../const/colors.dart';
@@ -27,8 +28,6 @@ class _LoginScreenState extends State<LoginScreen> {
   bool _isPasswordHidden = true;
   late String token;
   final dio = Dio();
-
-  late Map<String, dynamic> meInfo = {};
   bool isSignUpInProgress = false;
 
   @override
@@ -57,27 +56,12 @@ class _LoginScreenState extends State<LoginScreen> {
       token = loginService;
       print('success: $token');
 
-      // TO retrieve
-      // final SharedPreferences prefs = await SharedPreferences.getInstance();
-      // final cachedLoginServiceResponse = prefs.getString('loginServiceResponse');
-      // if (cachedLoginServiceResponse != null) {
-      //   final loginServiceResponse = json.decode(cachedLoginServiceResponse);
-      //   // Now you can use the cached loginServiceResponse as needed
-      // }
-
-      // Navigator.pushReplacement(
-      //   context,
-      //   MaterialPageRoute(
-      //     builder: (context) => BottomNavigationWidget(
-      //       icons: [
-      //         Icons.home_filled,
-      //         Icons.filter_alt_rounded,
-      //         Icons.supervised_user_circle,
-      //       ],
-      //       token: loginService,
-      //     ),
-      //   ),
-      // );
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => HomeScreen(token: token),
+        ),
+      );
     } catch (e) {
       AwesomeDialog(
         context: context,
@@ -95,18 +79,6 @@ class _LoginScreenState extends State<LoginScreen> {
           isSignUpInProgress = false;
         });
       }
-    }
-  }
-
-  Future<void> fetchMe() async {
-    try {
-      final tempMeService = meService(dio, token);
-      final pMeService = await tempMeService.getMeService();
-
-      meInfo = pMeService;
-      print("success $meInfo");
-    } catch (error) {
-      print("error: $error");
     }
   }
 
@@ -178,12 +150,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             //   },
                             //   child: Text("TEST"),
                             // ),
-                            ElevatedButton(
-                              onPressed: () {
-                                fetchMe();
-                              },
-                              child: Text("Test"),
-                            ),
+
                             Container(
                               decoration: BoxDecoration(
                                 border: Border.all(color: greyColor3, width: 1.0),
