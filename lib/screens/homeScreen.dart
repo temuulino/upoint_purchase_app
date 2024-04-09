@@ -64,7 +64,21 @@ class _HomeScreenState extends State<HomeScreen> {
       final tempPurchaseService = purchaseService(dio, widget.token);
       final ppurchaseService = await tempPurchaseService.doPurchase(itemId);
 
-      purchase = ppurchaseService;
+      setState(() {
+        purchase = ppurchaseService;
+      });
+      AwesomeDialog(
+        context: context,
+        dialogType: DialogType.success,
+        animType: AnimType.scale,
+        title: 'Амжилттай',
+        desc: 'Худалдан авалтын буцан олголт: ${purchase['cashbackReceived'].toStringAsFixed(2)}',
+        btnOkOnPress: () {
+          fetchMe();
+        },
+        btnOkText: 'Ok',
+        btnOkColor: successColor5,
+      ).show();
       print("Success purchase: $purchase");
     } catch (error) {
       AwesomeDialog(
@@ -150,7 +164,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Text(
-                                        meInfo['card']['balance'].toString(),
+                                        meInfo['card']['balance'].toStringAsFixed(2),
                                         style: ktsBodyLargeBold.copyWith(color: whiteColor),
                                       ),
                                       w4(),
